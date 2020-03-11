@@ -1,0 +1,7 @@
+collections:
+  - name: junipernetworks.junos
+    source: https://galaxy.ansible.com
+
+  - name: f5networks.f5_modules
+    source: https://cloud.redhat.com/api/automation-hub/
+

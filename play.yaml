@@ -1,0 +1,36 @@
+- name: GATHER FACTS FROM JUNIPER ROUTER
+  hosts: junos
+  gather_facts: no
+  collections:   # Define collections to search
+    - junipernetworks.junos
+       
+  tasks:
+    - name: GATHER FACTS
+      junos_facts:
+        
+    - name: DISPLAY JUNOS VERSION
+      debug:
+        var: ansible_net_version
+
+
+- name: GATHER FACTS FROM F5 
+  hosts: f5
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: COLLECT BIG-IP FACTS
+      f5networks.f5_modules.bigip_device_info: #explicit collection path 
+        gather_subset:
+         - system-info
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 8443
+          validate_certs: no
+      register: device_facts
+      
+    - name: DISPLAY JUNOS VERSION
+      debug:
+        var:  device_facts['system_info']['product_version']
