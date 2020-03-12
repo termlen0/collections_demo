@@ -4,11 +4,10 @@
   collections:   # Define collections to search
     - junipernetworks.junos
 
-  tags:
-    - jj
   tasks:
     - name: GATHER FACTS
       junos_facts:
+        gather_subset: min
         
     - name: DISPLAY JUNOS VERSION
       debug:
@@ -24,15 +23,15 @@
     - name: COLLECT BIG-IP FACTS
       f5networks.f5_modules.bigip_device_info: #explicit collection path 
         gather_subset:
-         - system-info
+          - system-info
         provider:
-          server: "{{private_ip}}"
+          server: "{{ansible_host}}"
           user: "{{ansible_user}}"
           password: "{{ansible_ssh_pass}}"
           server_port: 8443
           validate_certs: no
       register: device_facts
       
-    - name: DISPLAY JUNOS VERSION
+    - name: DISPLAY F5 VERSION
       debug:
         var:  device_facts['system_info']['product_version']
