@@ -1,9 +1,11 @@
 - name: GATHER FACTS FROM JUNIPER ROUTER
-  hosts: junos
+  hosts: juniper
   gather_facts: no
   collections:   # Define collections to search
     - junipernetworks.junos
-       
+
+  tags:
+    - jj
   tasks:
     - name: GATHER FACTS
       junos_facts:
