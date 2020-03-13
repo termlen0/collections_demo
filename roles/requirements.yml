@@ -1,4 +1,0 @@
-roles:
-  # Install a role from Ansible Galaxy.
-  - name: geerlingguy.haproxy
-    src:  https://galaxy.ansible.com
